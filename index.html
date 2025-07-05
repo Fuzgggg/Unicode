@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Glyph Tools by Fuad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: monospace;
+      background: #111;
+      color: #0f0;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #0ff;
+    }
+    input[type="file"] {
+      margin: 20px 0;
+    }
+    #output {
+      white-space: pre;
+      background: #000;
+      padding: 10px;
+      overflow-x: auto;
+      max-width: 100%;
+      margin: 20px auto;
+      border: 1px solid #333;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    #footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <h1>🖼️ Glyph Tools by Fuad</h1>
+  <p>Upload gambar dan ubah ke Unicode Glyph. Lalu salin hasilnya!</p>
+
+  <input type="file" id="imageInput" accept="image/*"><br>
+  <canvas id="canvas" style="display:none;"></canvas>
+  <div id="output"></div>
+  <button onclick="copyText()">📋 Salin Glyph</button>
+
+  <div id="footer">
+    Dibuat oleh Fuad • 2025
+  </div>
+
+  <script>
+    const imageInput = document.getElementById('imageInput');
+    const canvas = document.getElementById('canvas');
+    const output = document.getElementById('output');
+
+    const glyphs = [' ', '.', ':', '-', '=', '+', '*', '#', '%', '@'];
+
+    imageInput.addEventListener('change', function() {
+      const file = this.files[0];
+      if (!file) return;
+
+      const img = new Image();
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        img.src = e.target.result;
+      };
+
+      img.onload = function() {
+        const ctx = canvas.getContext('2d');
+        const width = 100; // Kecilkan ukuran gambar
+        const ratio = img.height / img.width;
+        const height = Math.round(width * ratio);
+
+        canvas.width = width;
+        canvas.height = height;
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const imageData = ctx.getImageData(0, 0, width, height).data;
+        let text = '';
+
+        for (let y = 0; y < height; y++) {
+          for (let x = 0; x < width; x++) {
+            const index = (y * width + x) * 4;
+            const r = imageData[index];
+            const g = imageData[index + 1];
+            const b = imageData[index + 2];
+            const avg = (r + g + b) / 3;
+            const char = glyphs[Math.floor(avg / 256 * glyphs.length)];
+            text += char;
+          }
+          text += '\n';
+        }
+
+        output.textContent = text;
+      };
+
+      reader.readAsDataURL(file);
+    });
+
+    function copyText() {
+      navigator.clipboard.writeText(output.textContent)
+        .then(() => alert('Glyph berhasil disalin!'))
+        .catch(err => alert('Gagal menyalin.'));
+    }
+  </script>
+</body>
+</html>
