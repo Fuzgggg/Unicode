@@ -2,112 +2,228 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Glyph Tools by Fuad</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sheckles Store | Grow a Garden Roblox</title>
+
   <style>
     body {
-      font-family: monospace;
-      background: #111;
-      color: #0f0;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+      color: #333;
+    }
+
+    #loading {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #2e8b57;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      flex-direction: column;
+      color: white;
+      font-size: 20px;
+    }
+
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid white;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    header {
+      background: linear-gradient(to right, #43cea2, #185a9d);
+      color: white;
+      padding: 30px;
       text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px;
+    }
+
+    .card {
+      background: white;
       padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
     }
-    h1 {
-      color: #0ff;
+
+    .card:hover {
+      transform: scale(1.05) rotateX(5deg);
     }
-    input[type="file"] {
-      margin: 20px 0;
+
+    form {
+      background: white;
+      padding: 25px;
+      margin: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
-    #output {
-      white-space: pre;
-      background: #000;
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    select, input {
+      width: 100%;
       padding: 10px;
-      overflow-x: auto;
-      max-width: 100%;
-      margin: 20px auto;
-      border: 1px solid #333;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
     }
+
     button {
-      padding: 10px 20px;
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #2e8b57;
+      color: white;
+      border: none;
+      border-radius: 8px;
       font-size: 16px;
-      margin-top: 10px;
       cursor: pointer;
     }
-    #footer {
-      margin-top: 30px;
-      font-size: 14px;
-      color: #888;
+
+    button:hover {
+      background-color: #246b45;
+    }
+
+    .promo {
+      background-color: #fffde7;
+      padding: 20px;
+      margin: 30px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     }
   </style>
 </head>
 <body>
-  <h1>🖼️ Glyph Tools by Fuad</h1>
-  <p>Upload gambar dan ubah ke Unicode Glyph. Lalu salin hasilnya!</p>
 
-  <input type="file" id="imageInput" accept="image/*"><br>
-  <canvas id="canvas" style="display:none;"></canvas>
-  <div id="output"></div>
-  <button onclick="copyText()">📋 Salin Glyph</button>
+  <div id="loading">
+    <div class="spinner"></div>
+    Memuat toko Sheckles...
+  </div>
 
-  <div id="footer">
-    Dibuat oleh Fuad • 2025
+  <div id="mainContent" style="display:none;">
+    <header>
+      <h1>Sheckles Store – Grow a Garden Roblox</h1>
+      <p>Jual sheckles cepat, aman, dan terpercaya</p>
+    </header>
+
+    <section class="card-grid">
+      <div class="card"><h3>1T–900T</h3><p>Rp 1.000 / unit</p></div>
+      <div class="card"><h3>1Qa–900Qa</h3><p>Rp 2.000 / unit</p></div>
+      <div class="card"><h3>1Qi–900Qi</h3><p>Rp 3.000 / unit</p></div>
+      <div class="card"><h3>1Sx+</h3><p>Rp 4.000 / unit (otomatis naik)</p></div>
+    </section>
+
+    <form>
+      <label for="jumlah">Jumlah Sheckles (1–900):</label>
+      <select id="jumlah">
+        <script>
+          for (let i = 1; i <= 900; i++) {
+            document.write(`<option value="${i}">${i}</option>`);
+          }
+        </script>
+      </select>
+
+      <label for="jenis">Jenis Sheckles:</label>
+      <select id="jenis">
+        <option value="T">T</option>
+        <option value="Qa">Qa</option>
+        <option value="Qi">Qi</option>
+        <option value="Sx">Sx</option>
+      </select>
+
+      <label for="username">Username Roblox:</label>
+      <input type="text" id="username" placeholder="Contoh: FuadGaming123" required>
+
+      <label for="payment">Metode Pembayaran:</label>
+      <select id="payment">
+        <option value="Dana">Dana</option>
+        <option value="OVO">OVO</option>
+        <option value="Gopay">Gopay</option>
+      </select>
+
+      <button type="button" onclick="kirimWhatsApp()">Beli Sekarang</button>
+    </form>
+
+    <div class="promo">
+      <h3>Gratis 500T</h3>
+      <p>Like halaman ini sampai 1000 untuk klaim 500T gratis!</p>
+      <progress id="progressBar" value="0" max="1000" style="width:100%; height:20px;"></progress>
+      <button onclick="likePromo()">Like Sekarang</button>
+      <button onclick="klaimPromo()">Klaim 500T</button>
+      <p id="likeCount">Total Like: 0</p>
+    </div>
   </div>
 
   <script>
-    const imageInput = document.getElementById('imageInput');
-    const canvas = document.getElementById('canvas');
-    const output = document.getElementById('output');
-
-    const glyphs = [' ', '.', ':', '-', '=', '+', '*', '#', '%', '@'];
-
-    imageInput.addEventListener('change', function() {
-      const file = this.files[0];
-      if (!file) return;
-
-      const img = new Image();
-      const reader = new FileReader();
-
-      reader.onload = function(e) {
-        img.src = e.target.result;
-      };
-
-      img.onload = function() {
-        const ctx = canvas.getContext('2d');
-        const width = 100; // Kecilkan ukuran gambar
-        const ratio = img.height / img.width;
-        const height = Math.round(width * ratio);
-
-        canvas.width = width;
-        canvas.height = height;
-        ctx.drawImage(img, 0, 0, width, height);
-
-        const imageData = ctx.getImageData(0, 0, width, height).data;
-        let text = '';
-
-        for (let y = 0; y < height; y++) {
-          for (let x = 0; x < width; x++) {
-            const index = (y * width + x) * 4;
-            const r = imageData[index];
-            const g = imageData[index + 1];
-            const b = imageData[index + 2];
-            const avg = (r + g + b) / 3;
-            const char = glyphs[Math.floor(avg / 256 * glyphs.length)];
-            text += char;
-          }
-          text += '\n';
-        }
-
-        output.textContent = text;
-      };
-
-      reader.readAsDataURL(file);
+    window.addEventListener("load", function() {
+      setTimeout(function() {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+      }, 2000);
     });
 
-    function copyText() {
-      navigator.clipboard.writeText(output.textContent)
-        .then(() => alert('Glyph berhasil disalin!'))
-        .catch(err => alert('Gagal menyalin.'));
+    let likeTotal = 0;
+
+    function kirimWhatsApp() {
+      const jumlah = parseInt(document.getElementById("jumlah").value);
+      const jenis = document.getElementById("jenis").value;
+      const username = document.getElementById("username").value;
+      const payment = document.getElementById("payment").value;
+
+      let harga = 0;
+      if (jenis === "T") harga = 1000;
+      else if (jenis === "Qa") harga = 2000;
+      else if (jenis === "Qi") harga = 3000;
+      else if (jenis === "Sx") harga = 4000 * jumlah;
+
+      const pesan = `Halo, saya ingin beli ${jumlah}${jenis} sheckles.\nUsername Roblox: ${username}\nTotal Harga: Rp ${harga.toLocaleString()}\nMetode pembayaran: ${payment}`;
+      const nomor = "6285697067873";
+      const url = `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
+      window.open(url, "_blank");
     }
-  </script>
+
+    function likePromo() {
+      likeTotal++;
+      document.getElementById("likeCount").innerText = "Total Like: " + likeTotal;
+      document.getElementById("progressBar").value = likeTotal;
+    }
+
+    function klaimPromo() {
+      if (likeTotal >= 1000) {
+        alert("Selamat! Kamu berhasil klaim 500T gratis.");
+      } else {
+        alert("Belum cukup like. Ajak temanmu dulu sampai 1000!");
+      }
+    }
+</script>
+
+  <footer>
+    &copy; 2025 Sheckles Store by Fuad | All rights reserved
+  </footer>
+
 </body>
 </html>
