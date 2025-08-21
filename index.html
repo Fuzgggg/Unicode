@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -103,8 +103,13 @@
       cursor: pointer;
     }
 
-    button:hover {
+    button:hover:enabled {
       background-color: #246b45;
+    }
+
+    button:disabled {
+      background-color: gray;
+      cursor: not-allowed;
     }
 
     .promo {
@@ -173,7 +178,7 @@
       <p>Like halaman ini sampai 200 untuk klaim 500T gratis!</p>
       <progress id="progressBar" value="0" max="200" style="width:100%; height:20px;"></progress>
       <button onclick="likePromo()">Like Sekarang</button>
-      <button onclick="klaimPromo()">Klaim 500T</button>
+      <button id="klaimBtn" onclick="klaimPromo()">Klaim 500T</button>
       <p id="likeCount">Total Like: 0</p>
     </div>
   </div>
@@ -214,12 +219,25 @@
 
     function klaimPromo() {
       if (likeTotal >= 200) {
-        alert("Selamat! Kamu berhasil klaim 500T gratis,langsung saja kenomor 085697067873 dan ss scroll keatas untuk chat.");
+        const username = document.getElementById("username").value;
+        if (!username) {
+          alert("Isi dulu username Roblox sebelum klaim hadiah!");
+          return;
+        }
+        alert("Selamat! Kamu berhasil klaim 500T gratis.");
+        const nomor = "6285697067873";
+        const pesan = `Halo, saya ingin klaim hadiah gratis 500T sheckles.\nUsername Roblox: ${username}`;
+        const url = `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
+        window.open(url, "_blank");
+
+        // Disable tombol klaim setelah berhasil
+        document.getElementById("klaimBtn").disabled = true;
+        document.getElementById("klaimBtn").innerText = "Sudah Diklaim ✅";
       } else {
         alert("Belum cukup like sampai 200!");
       }
     }
-</script>
+  </script>
 
   <footer>
     &copy; 2025 Sheckles Store by Fuad | All rights reserved
