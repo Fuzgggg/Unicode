@@ -6,119 +6,187 @@
   <title>Sheckles Store | Grow a Garden Roblox</title>
 
   <style>
+    /* Font & Body */
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
-      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+      color: #222;
+      overflow-x: hidden;
     }
 
+    /* Loading Screen */
     #loading {
       position: fixed;
       width: 100%;
       height: 100%;
-      background: #2e8b57;
+      background: linear-gradient(135deg, #43cea2, #185a9d);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 9999;
       flex-direction: column;
       color: white;
-      font-size: 20px;
+      font-size: 22px;
+      letter-spacing: 1px;
+      animation: fadeIn 1s ease-in-out;
     }
 
     .spinner {
-      border: 6px solid #f3f3f3;
-      border-top: 6px solid white;
+      border: 8px solid rgba(255,255,255,0.2);
+      border-top: 8px solid #fff;
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       animation: spin 1s linear infinite;
       margin-bottom: 15px;
     }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+    @keyframes spin { 0% { transform: rotate(0deg);} 100% {transform: rotate(360deg);} }
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
 
+    /* Header */
     header {
-      background: linear-gradient(to right, #43cea2, #185a9d);
+      background: linear-gradient(to right, #6a11cb, #2575fc);
       color: white;
-      padding: 30px;
+      padding: 40px 20px;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      animation: fadeInDown 1s ease-in-out;
     }
 
+    @keyframes fadeInDown {
+      from {transform: translateY(-50px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    }
+    header p {
+      margin: 10px 0 0;
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* Card Grid */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      margin: 40px;
     }
 
     .card {
       background: white;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
       text-align: center;
-      transition: transform 0.3s ease;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
+      overflow: hidden;
     }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #2575fc;
+    }
+    .card p { margin: 10px 0 0; font-weight: bold; }
 
     .card:hover {
-      transform: scale(1.05) rotateX(5deg);
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     }
 
+    /* Form */
     form {
-      background: white;
-      padding: 25px;
+      background: rgba(255,255,255,0.95);
+      padding: 30px;
       margin: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      animation: fadeIn 1s ease-in-out;
     }
 
     label {
       display: block;
       margin-top: 15px;
       font-weight: bold;
+      font-size: 14px;
     }
 
     select, input {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 8px;
+      padding: 12px;
+      margin-top: 6px;
+      border-radius: 10px;
       border: 1px solid #ccc;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    select:focus, input:focus {
+      border-color: #2575fc;
+      box-shadow: 0 0 8px rgba(37,117,252,0.5);
+      outline: none;
     }
 
     button {
       margin-top: 20px;
-      padding: 12px;
-      background-color: #2e8b57;
+      padding: 14px;
+      background: linear-gradient(to right, #43cea2, #185a9d);
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       font-size: 16px;
       cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
     }
 
     button:hover:enabled {
-      background-color: #246b45;
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
 
     button:disabled {
-      background-color: gray;
+      background: gray;
       cursor: not-allowed;
     }
 
+    /* Promo Box */
     .promo {
-      background-color: #fffde7;
-      padding: 20px;
-      margin: 30px;
-      border-radius: 15px;
+      background: linear-gradient(135deg, #fffde7, #ffecb3);
+      padding: 25px;
+      margin: 40px;
+      border-radius: 20px;
       text-align: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    @keyframes fadeInUp {
+      from {transform: translateY(40px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
+
+    .promo h3 { margin: 0; font-size: 1.8rem; color: #ff6f00; }
+    .promo p { margin: 10px 0; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #222;
+      color: #aaa;
+      font-size: 14px;
+      margin-top: 40px;
     }
   </style>
 </head>
@@ -131,8 +199,8 @@
 
   <div id="mainContent" style="display:none;">
     <header>
-      <h1>Sheckles Store – Grow a Garden Roblox</h1>
-      <p>Jual sheckles cepat, aman, dan terpercaya</p>
+      <h1>🌱 Sheckles Store</h1>
+      <p>Grow a Garden Roblox • Cepat, Aman, Terpercaya</p>
     </header>
 
     <section class="card-grid">
@@ -170,15 +238,16 @@
         <option value="Gopay">Gopay</option>
       </select>
 
-      <button type="button" onclick="kirimWhatsApp()">Beli Sekarang</button>
+      <button type="button" onclick="kirimWhatsApp()">💸 Beli Sekarang</button>
     </form>
 
     <div class="promo">
-      <h3>Gratis 500T</h3>
-      <p>Like halaman ini sampai 200 untuk klaim 500T gratis!</p>
+      <h3>🎁 Gratis 500T</h3>
+      <p>Like halaman ini sampai 200 untuk klaim hadiah!</p>
       <progress id="progressBar" value="0" max="200" style="width:100%; height:20px;"></progress>
-      <button onclick="likePromo()">Like Sekarang</button>
-      <button id="klaimBtn" onclick="klaimPromo()">Klaim 500T</button>
+      <br>
+      <button onclick="likePromo()">👍 Like Sekarang</button>
+      <button id="klaimBtn" onclick="klaimPromo()">🎉 Klaim 500T</button>
       <p id="likeCount">Total Like: 0</p>
     </div>
   </div>
@@ -224,15 +293,16 @@
           alert("Isi dulu username Roblox sebelum klaim hadiah!");
           return;
         }
-        alert("Selamat! Kamu berhasil klaim 500T gratis.");
+        alert("🎉 Selamat! Kamu berhasil klaim 500T gratis.");
         const nomor = "6285697067873";
         const pesan = `Halo, saya ingin klaim hadiah gratis 500T sheckles.\nUsername Roblox: ${username}`;
         const url = `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
         window.open(url, "_blank");
 
-        // Disable tombol klaim setelah berhasil
-        document.getElementById("klaimBtn").disabled = true;
-        document.getElementById("klaimBtn").innerText = "Sudah Diklaim ✅";
+        // Disable tombol klaim
+        const btn = document.getElementById("klaimBtn");
+        btn.disabled = true;
+        btn.innerText = "✅ Sudah Diklaim";
       } else {
         alert("Belum cukup like sampai 200!");
       }
@@ -240,7 +310,7 @@
   </script>
 
   <footer>
-    &copy; 2025 Sheckles Store by Fuad | All rights reserved
+    &copy; 2025 🌱 Sheckles Store by Fuad | All rights reserved
   </footer>
 
 </body>
